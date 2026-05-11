@@ -1,0 +1,28 @@
+# Python bytecode (compiled files)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables (CRITICAL: Do not push your secrets!)
+.env
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Databases (Local SQLite files)
+*.sqlite3
+
+# Static and Media folders
+# Usually, you don't push user-uploaded files or collected static files
+/static/
+/media/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
+Thumbs.db

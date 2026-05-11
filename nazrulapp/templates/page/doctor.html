@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm border-0">
+            <h5 class="mb-3">
+                {% if doctor %} Edit Doctor: {{ doctor.name }} {% else %} Add New Doctor {% endif %}
+            </h5>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-2">
+                    <input type="text" name="name" class="form-control" placeholder="Name" 
+                           value="{{ doctor.name|default:'' }}" required>
+                </div>
+                <div class="mb-2">
+                    <input type="text" name="specialization" class="form-control" placeholder="Specialization" 
+                           value="{{ doctor.specialization|default:'' }}">
+                </div>
+                <div class="mb-2">
+                    <input type="text" name="mobile" class="form-control" placeholder="Mobile" 
+                           value="{{ doctor.mobile|default:'' }}">
+                </div>
+                <div class="mb-2">
+                    <input type="text" name="address" class="form-control" placeholder="Address" 
+                           value="{{ doctor.address|default:'' }}">
+                </div>
+                <div class="mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="Email" 
+                           value="{{ doctor.email|default:'' }}">
+                </div>
+                
+                <button type="submit" class="btn {% if doctor %}btn-info{% else %}btn-success{% endif %} w-100">
+                    {% if doctor %} Save Changes {% else %} Add Doctor {% endif %}
+                </button>
+                
+                {% if doctor %}
+                <a href="{% url 'doctor' %}" class="btn btn-light w-100 mt-2">Cancel Edit</a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Specialization</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doc in doctors %}
+                    <tr {% if doc.id == doctor.id %}class="table-info"{% endif %}>
+                        <td>{{ doc.name }}</td>
+                        <td>{{ doc.specialization }}</td>
+                        <td>{{ doc.mobile }}</td>
+                        <td>{{ doc.address }}</td>
+                        <td>{{ doc.email }}</td>
+                        <td>
+                            <a href="{% url 'edit' doc.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <a href="{% url 'delete' doc.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
