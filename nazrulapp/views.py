@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from tawhidapp.models import *
+from nazrulapp.models import *
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
